@@ -5,7 +5,7 @@ const ESlintPlugin = require('eslint-webpack-plugin');
 
 module.exports = {
   mode: 'development',
-  entry: './src/index.ts',
+  entry: './src/index.tsx',
   devtool: 'source-map',
   output: {
     filename: 'bundle.[contenthash].js',
