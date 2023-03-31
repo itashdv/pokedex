@@ -18,7 +18,10 @@
   },
   "homepage": "https://github.com/itashdv/pokedex#readme",
   "devDependencies": {
+    "css-loader": "^6.7.3",
     "html-webpack-plugin": "^5.5.0",
+    "sass-loader": "^13.2.2",
+    "style-loader": "^3.3.2",
     "webpack": "^5.77.0",
     "webpack-cli": "^5.0.1"
   }
