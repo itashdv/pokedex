@@ -1,6 +1,6 @@
 import { PokemonClient } from 'pokenode-ts';
 
-import { ListPokemon, IPokemon } from '../types';
+import type { ListPokemon, IPokemon } from '../types';
 import { mapPokemons } from '../utils';
 
 const api = new PokemonClient();

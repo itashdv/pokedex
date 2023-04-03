@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-import { IPokemon } from '../types';
+import type { IPokemon } from '../types';
 import { requester } from '../api';
 
 export const usePokemons = (offset: number, limit: number) => {
