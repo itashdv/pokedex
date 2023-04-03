@@ -1,10 +1,18 @@
 import { useEffect } from 'react';
+import { Grid } from '@mui/material';
 
-import { useAppDispatch } from '../../../store/hooks';
+import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 
 import { IPokemon } from '../../../types';
 import { requester } from '../../../api';
-import { requestFetch, setList, setError } from '../pokemon-slice';
+import {
+  requestFetch,
+  setList,
+  setError,
+  selectPokemons,
+} from '../pokemon-slice';
+
+import { ListItem } from './list-item';
 
 type Props = {
   offset: number;
@@ -13,6 +21,8 @@ type Props = {
 
 export const PokemonList = ({ offset, limit }: Props) => {
   const dispatch = useAppDispatch();
+
+  const { list, current, pending, error } = useAppSelector(selectPokemons);
 
   useEffect(() => {
     (async () => {
@@ -28,5 +38,15 @@ export const PokemonList = ({ offset, limit }: Props) => {
     })();
   }, [offset, limit]);
 
-  return <div>Pokemon list</div>;
+  if (pending) return <p>Loading..</p>;
+
+  if (error) return <p>{error}</p>;
+
+  return (
+    <Grid container spacing={2}>
+      {list.map((pokemon: IPokemon) => (
+        <ListItem key={pokemon.id} pokemon={pokemon} />
+      ))}
+    </Grid>
+  );
 };
