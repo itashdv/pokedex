@@ -1,11 +1,11 @@
 import { useEffect, MouseEvent, ChangeEvent } from 'react';
-import { Grid, Modal, Typography, Box } from '@mui/material';
+import { Grid } from '@mui/material';
 
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 
 import { IPokemon, PaginationPayload } from '../../../types';
 import { requester } from '../../../api';
-import { Pagination } from '../../shared';
+import { Pagination, Loader, ErrorAlert } from '../../shared';
 
 import {
   requestFetch,
@@ -19,12 +19,21 @@ import {
 
 import { ListItem } from './list-item';
 import { PokemonModal } from './modal';
+import { TypesFilter } from './types-filter';
 
 export const PokemonList = () => {
   const dispatch = useAppDispatch();
 
-  const { list, current, pending, error, currentOffset, count, page } =
-    useAppSelector(selectPokemons);
+  const {
+    list,
+    filtered,
+    current,
+    pending,
+    error,
+    currentOffset,
+    count,
+    page,
+  } = useAppSelector(selectPokemons);
 
   const { offset, limit } = currentOffset;
 
@@ -48,6 +57,8 @@ export const PokemonList = () => {
     setPage(0);
   };
 
+  const renderList = filtered.length !== 0 ? filtered : list;
+
   useEffect(() => {
     (async () => {
       try {
@@ -65,13 +76,15 @@ export const PokemonList = () => {
     })();
   }, [offset, limit]);
 
-  if (pending) return <p>Loading..</p>;
+  if (pending) return <Loader />;
 
-  if (error) return <p>{error}</p>;
+  if (error) return <ErrorAlert message={error} />;
 
   return (
     <div>
       {current && <PokemonModal current={current} handleClose={handleClose} />}
+
+      <TypesFilter />
 
       <Pagination
         count={count}
@@ -82,7 +95,7 @@ export const PokemonList = () => {
       />
 
       <Grid container spacing={2}>
-        {list.map((pokemon: IPokemon) => (
+        {renderList.map((pokemon: IPokemon) => (
           <ListItem
             key={pokemon.id}
             pokemon={pokemon}

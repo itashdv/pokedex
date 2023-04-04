@@ -6,6 +6,7 @@ import type { OffsetLimit, IPokemon, PaginationPayload } from '../../types';
 
 interface IPokemonState {
   list: IPokemon[];
+  filtered: IPokemon[];
   current: IPokemon | null;
   pending: boolean;
   error: string;
@@ -18,6 +19,7 @@ interface IPokemonState {
 
 const initialState: IPokemonState = {
   list: [],
+  filtered: [],
   current: null,
   pending: false,
   error: '',
@@ -76,6 +78,10 @@ export const pokemonSlice = createSlice({
       ...state,
       currentOffset: { ...state.currentOffset, limit: action.payload },
     }),
+    filterByTypes: (state, action: PayloadAction<IPokemon[]>) => ({
+      ...state,
+      filtered: action.payload,
+    }),
   },
 });
 
@@ -84,6 +90,7 @@ export const {
   setList,
   setError,
   setLimit,
+  filterByTypes,
   setPage,
   setPokemon,
 } = pokemonSlice.actions;

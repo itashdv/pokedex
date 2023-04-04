@@ -24,10 +24,6 @@ export const POKEMON_TYPES = [
     color: '#98D8D8',
   },
   {
-    name: 'ice',
-    color: '#98D8D8',
-  },
-  {
     name: 'fighting',
     color: '#C03028',
   },
