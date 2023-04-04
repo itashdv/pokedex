@@ -10,12 +10,15 @@ import { IPokemon } from '../../../types';
 
 type Props = {
   pokemon: IPokemon;
+  handlePokemonClick: (pokemon: IPokemon) => void;
 };
 
-export const ListItem = ({ pokemon }: Props) => {
+export const ListItem = ({ pokemon, handlePokemonClick }: Props) => {
+  const onClick = () => handlePokemonClick(pokemon);
+
   return (
     <Grid item xs={6} md={3}>
-      <Card sx={{ maxWidth: '160px', paddingTop: '20px' }}>
+      <Card sx={{ maxWidth: '160px', paddingTop: '20px' }} onClick={onClick}>
         <CardActionArea>
           <CardMedia
             component="img"

@@ -1,5 +1,5 @@
 import { useEffect, MouseEvent, ChangeEvent } from 'react';
-import { Grid } from '@mui/material';
+import { Grid, Modal, Typography, Box } from '@mui/material';
 
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 
@@ -13,10 +13,12 @@ import {
   setError,
   setLimit,
   setPage,
+  setPokemon,
   selectPokemons,
 } from '../pokemon-slice';
 
 import { ListItem } from './list-item';
+import { PokemonModal } from './modal';
 
 export const PokemonList = () => {
   const dispatch = useAppDispatch();
@@ -25,6 +27,12 @@ export const PokemonList = () => {
     useAppSelector(selectPokemons);
 
   const { offset, limit } = currentOffset;
+
+  const handlePokemonClick = (pokemon: IPokemon) => {
+    dispatch(setPokemon(pokemon));
+  };
+
+  const handleClose = () => handlePokemonClick(null);
 
   const handlePageChange = (
     event: MouseEvent<HTMLButtonElement> | null,
@@ -63,6 +71,8 @@ export const PokemonList = () => {
 
   return (
     <div>
+      {current && <PokemonModal current={current} handleClose={handleClose} />}
+
       <Pagination
         count={count}
         page={page}
@@ -73,7 +83,11 @@ export const PokemonList = () => {
 
       <Grid container spacing={2}>
         {list.map((pokemon: IPokemon) => (
-          <ListItem key={pokemon.id} pokemon={pokemon} />
+          <ListItem
+            key={pokemon.id}
+            pokemon={pokemon}
+            handlePokemonClick={handlePokemonClick}
+          />
         ))}
       </Grid>
 

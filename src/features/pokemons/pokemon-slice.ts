@@ -79,8 +79,14 @@ export const pokemonSlice = createSlice({
   },
 });
 
-export const { requestFetch, setList, setError, setLimit, setPage } =
-  pokemonSlice.actions;
+export const {
+  requestFetch,
+  setList,
+  setError,
+  setLimit,
+  setPage,
+  setPokemon,
+} = pokemonSlice.actions;
 
 export const selectPokemons = (state: RootState) => state.pokemons;
 
