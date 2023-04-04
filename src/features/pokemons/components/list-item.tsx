@@ -15,7 +15,7 @@ type Props = {
 export const ListItem = ({ pokemon }: Props) => {
   return (
     <Grid item xs={6} md={3}>
-      <Card sx={{ maxWidth: 200 }}>
+      <Card sx={{ maxWidth: '160px', paddingTop: '20px' }}>
         <CardActionArea>
           <CardMedia
             component="img"
@@ -26,6 +26,7 @@ export const ListItem = ({ pokemon }: Props) => {
           <CardContent>
             <Typography
               style={{ textTransform: 'capitalize' }}
+              align="center"
               gutterBottom
               variant="h5"
               component="div"

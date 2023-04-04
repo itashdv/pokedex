@@ -1,6 +1,6 @@
 import { PokemonClient } from 'pokenode-ts';
 
-import type { ListPokemon, IPokemon } from '../types';
+import type { ListPokemon, OffsetLimit, PaginationPayload } from '../types';
 import { mapPokemons } from '../utils';
 
 const api = new PokemonClient();
@@ -8,8 +8,32 @@ const api = new PokemonClient();
 export const getList = async (
   offset: number,
   limit: number
-): Promise<IPokemon[]> => {
+): Promise<PaginationPayload> => {
   const list: ListPokemon[] = (await api.listPokemons(offset, limit)).results;
+
+  const fullList: any = await api.listPokemons(offset, limit);
+
+  const nextOffset: OffsetLimit | null = fullList.next
+    ? {
+        offset: parseInt(
+          new URLSearchParams(fullList.next.replace('?', '&')).get('offset')
+        ),
+        limit: parseInt(
+          new URLSearchParams(fullList.next.replace('?', '&')).get('limit')
+        ),
+      }
+    : null;
+
+  const previousOffset: OffsetLimit | null = fullList.previous
+    ? {
+        offset: parseInt(
+          new URLSearchParams(fullList.previous.replace('?', '&')).get('offset')
+        ),
+        limit: parseInt(
+          new URLSearchParams(fullList.previous.replace('?', '&')).get('limit')
+        ),
+      }
+    : null;
 
   const names: string[] = list.map((item: ListPokemon) => item.name);
 
@@ -23,5 +47,10 @@ export const getList = async (
     return pokemonArray;
   }, Promise.resolve([]));
 
-  return mapPokemons(listArray);
+  return {
+    list: mapPokemons(listArray),
+    count: fullList.count,
+    next: nextOffset,
+    previous: previousOffset,
+  };
 };

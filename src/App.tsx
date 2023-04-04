@@ -8,7 +8,8 @@ const App = () => {
       <Typography gutterBottom variant="h3" component="div">
         Pokedex
       </Typography>
-      <PokemonList offset={0} limit={10} />
+
+      <PokemonList />
     </Container>
   );
 };
