@@ -9,12 +9,12 @@ module.exports = {
   devtool: 'source-map',
   output: {
     filename: 'bundle.[contenthash].js',
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, 'build'),
     clean: true,
   },
   devServer: {
     static: {
-      directory: path.resolve(__dirname, 'dist'),
+      directory: path.resolve(__dirname, 'build'),
     },
     port: 3000,
     open: true,
