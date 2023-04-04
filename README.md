@@ -25,3 +25,4 @@
 ## Ссылка
 
 Данный проект можно посмотреть на [Github](https://github.com/itashdv/pokedex).
+Рабочую версию проекта можно открыть по [адресу](http://itashdv.github.io/pokedex).
