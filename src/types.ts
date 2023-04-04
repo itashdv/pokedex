@@ -24,4 +24,9 @@ type PaginationPayload = {
   previous: OffsetLimit | null;
 };
 
-export { ListPokemon, OffsetLimit, IPokemon, PaginationPayload };
+type PokemonType = {
+  name: string;
+  color: string;
+};
+
+export { ListPokemon, OffsetLimit, IPokemon, PaginationPayload, PokemonType };

@@ -7,6 +7,7 @@ import {
   Typography,
 } from '@mui/material';
 import { IPokemon } from '../../../types';
+import { PokemonTypes } from '../../shared';
 
 type Props = {
   pokemon: IPokemon;
@@ -36,6 +37,8 @@ export const ListItem = ({ pokemon, handlePokemonClick }: Props) => {
             >
               {pokemon.name}
             </Typography>
+
+            <PokemonTypes types={pokemon.types} />
           </CardContent>
         </CardActionArea>
       </Card>
